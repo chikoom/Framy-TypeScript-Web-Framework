@@ -117,250 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"src/models/Model.ts":[function(require,module,exports) {
-"use strict";
-
-var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function (resolve) {
-      resolve(value);
-    });
-  }
-
-  return new (P || (P = Promise))(function (resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-
-var __generator = this && this.__generator || function (thisArg, body) {
-  var _ = {
-    label: 0,
-    sent: function sent() {
-      if (t[0] & 1) throw t[1];
-      return t[1];
-    },
-    trys: [],
-    ops: []
-  },
-      f,
-      y,
-      t,
-      g;
-  return g = {
-    next: verb(0),
-    "throw": verb(1),
-    "return": verb(2)
-  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
-    return this;
-  }), g;
-
-  function verb(n) {
-    return function (v) {
-      return step([n, v]);
-    };
-  }
-
-  function step(op) {
-    if (f) throw new TypeError("Generator is already executing.");
-
-    while (_) {
-      try {
-        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-        if (y = 0, t) op = [op[0] & 2, t.value];
-
-        switch (op[0]) {
-          case 0:
-          case 1:
-            t = op;
-            break;
-
-          case 4:
-            _.label++;
-            return {
-              value: op[1],
-              done: false
-            };
-
-          case 5:
-            _.label++;
-            y = op[1];
-            op = [0];
-            continue;
-
-          case 7:
-            op = _.ops.pop();
-
-            _.trys.pop();
-
-            continue;
-
-          default:
-            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-              _ = 0;
-              continue;
-            }
-
-            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
-              _.label = op[1];
-              break;
-            }
-
-            if (op[0] === 6 && _.label < t[1]) {
-              _.label = t[1];
-              t = op;
-              break;
-            }
-
-            if (t && _.label < t[2]) {
-              _.label = t[2];
-
-              _.ops.push(op);
-
-              break;
-            }
-
-            if (t[2]) _.ops.pop();
-
-            _.trys.pop();
-
-            continue;
-        }
-
-        op = body.call(thisArg, _);
-      } catch (e) {
-        op = [6, e];
-        y = 0;
-      } finally {
-        f = t = 0;
-      }
-    }
-
-    if (op[0] & 5) throw op[1];
-    return {
-      value: op[0] ? op[1] : void 0,
-      done: true
-    };
-  }
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Model = void 0;
-
-var Model =
-/** @class */
-function () {
-  function Model(attributes, events, sync) {
-    this.attributes = attributes;
-    this.events = events;
-    this.sync = sync;
-  }
-
-  Object.defineProperty(Model.prototype, "on", {
-    get: function get() {
-      return this.events.on;
-    },
-    enumerable: false,
-    configurable: true
-  });
-  Object.defineProperty(Model.prototype, "trigger", {
-    get: function get() {
-      return this.events.trigger;
-    },
-    enumerable: false,
-    configurable: true
-  });
-  Object.defineProperty(Model.prototype, "get", {
-    get: function get() {
-      return this.attributes.get;
-    },
-    enumerable: false,
-    configurable: true
-  });
-
-  Model.prototype.set = function (newValue) {
-    this.attributes.set(newValue);
-    this.events.trigger('change');
-  };
-
-  Model.prototype.fetch = function () {
-    return __awaiter(this, void 0, Promise, function () {
-      var id;
-
-      var _this = this;
-
-      return __generator(this, function (_a) {
-        id = this.get('id');
-        if (typeof id !== 'number') throw new Error('Cannot fetch without id!');
-        return [2
-        /*return*/
-        , new Promise(function (resolve, reject) {
-          _this.sync.fetch(id).then(function (result) {
-            _this.set(result.data);
-
-            resolve();
-          }).catch(function (err) {
-            _this.trigger('error');
-
-            console.error(err);
-            reject();
-          });
-        })];
-      });
-    });
-  };
-
-  Model.prototype.save = function () {
-    return __awaiter(this, void 0, Promise, function () {
-      var _this = this;
-
-      return __generator(this, function (_a) {
-        return [2
-        /*return*/
-        , new Promise(function (resolve, reject) {
-          _this.sync.save(_this.attributes.getAll()).then(function (result) {
-            _this.set(result.data);
-
-            _this.trigger('save');
-
-            resolve();
-          }).catch(function (err) {
-            _this.trigger('error');
-
-            console.error(err.message);
-            reject();
-          });
-        })];
-      });
-    });
-  };
-
-  return Model;
-}();
-
-exports.Model = Model;
-},{}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
+})({"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -2150,50 +1907,7 @@ module.exports.default = axios;
 
 },{"./utils":"node_modules/axios/lib/utils.js","./helpers/bind":"node_modules/axios/lib/helpers/bind.js","./core/Axios":"node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"node_modules/axios/lib/core/mergeConfig.js","./defaults":"node_modules/axios/lib/defaults.js","./cancel/Cancel":"node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"node_modules/axios/lib/helpers/spread.js"}],"node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"src/models/APISync.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.APISync = void 0;
-
-var axios_1 = __importDefault(require("axios"));
-
-var APISync =
-/** @class */
-function () {
-  function APISync(rootURL) {
-    var _this = this;
-
-    this.rootURL = rootURL;
-
-    this.save = function (data) {
-      var id = data.id;
-
-      if (id) {
-        return axios_1.default.put(_this.rootURL + "/" + id, data);
-      } else {
-        return axios_1.default.post(_this.rootURL, data);
-      }
-    };
-  }
-
-  APISync.prototype.fetch = function (id) {
-    return axios_1.default.get(this.rootURL + "/" + id);
-  };
-
-  return APISync;
-}();
-
-exports.APISync = APISync;
-},{"axios":"node_modules/axios/index.js"}],"src/models/Eventing.ts":[function(require,module,exports) {
+},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"src/models/Eventing.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2226,101 +1940,7 @@ function () {
 }();
 
 exports.Eventing = Eventing;
-},{}],"src/models/Attributes.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Attributes = void 0;
-
-var Attributes =
-/** @class */
-function () {
-  function Attributes(data) {
-    var _this = this;
-
-    this.data = data;
-
-    this.get = function (key) {
-      return _this.data[key];
-    };
-
-    this.set = function (newValues) {
-      Object.assign(_this.data, newValues);
-    };
-
-    this.getAll = function () {
-      return _this.data;
-    };
-  }
-
-  return Attributes;
-}();
-
-exports.Attributes = Attributes;
-},{}],"src/models/User.ts":[function(require,module,exports) {
-"use strict";
-
-var __extends = this && this.__extends || function () {
-  var _extendStatics = function extendStatics(d, b) {
-    _extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) {
-        if (b.hasOwnProperty(p)) d[p] = b[p];
-      }
-    };
-
-    return _extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    _extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
-    }
-
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.User = void 0;
-
-var Model_1 = require("./Model");
-
-var APISync_1 = require("./APISync");
-
-var Eventing_1 = require("./Eventing");
-
-var Attributes_1 = require("./Attributes");
-
-var rootURL = 'http://localhost:3000/users';
-
-var User =
-/** @class */
-function (_super) {
-  __extends(User, _super);
-
-  function User() {
-    return _super !== null && _super.apply(this, arguments) || this;
-  }
-
-  User.buildUser = function (attr) {
-    return new User(new Attributes_1.Attributes(attr), new Eventing_1.Eventing(), new APISync_1.APISync(rootURL));
-  };
-
-  return User;
-}(Model_1.Model);
-
-exports.User = User;
-},{"./Model":"src/models/Model.ts","./APISync":"src/models/APISync.ts","./Eventing":"src/models/Eventing.ts","./Attributes":"src/models/Attributes.ts"}],"src/models/Collection.ts":[function(require,module,exports) {
+},{}],"src/models/Collection.ts":[function(require,module,exports) {
 "use strict";
 
 var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
@@ -2537,7 +2157,393 @@ function () {
 }();
 
 exports.Collection = Collection;
-},{"axios":"node_modules/axios/index.js","./Eventing":"src/models/Eventing.ts"}],"src/index.ts":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./Eventing":"src/models/Eventing.ts"}],"src/models/Model.ts":[function(require,module,exports) {
+"use strict";
+
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+var __generator = this && this.__generator || function (thisArg, body) {
+  var _ = {
+    label: 0,
+    sent: function sent() {
+      if (t[0] & 1) throw t[1];
+      return t[1];
+    },
+    trys: [],
+    ops: []
+  },
+      f,
+      y,
+      t,
+      g;
+  return g = {
+    next: verb(0),
+    "throw": verb(1),
+    "return": verb(2)
+  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
+    return this;
+  }), g;
+
+  function verb(n) {
+    return function (v) {
+      return step([n, v]);
+    };
+  }
+
+  function step(op) {
+    if (f) throw new TypeError("Generator is already executing.");
+
+    while (_) {
+      try {
+        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+        if (y = 0, t) op = [op[0] & 2, t.value];
+
+        switch (op[0]) {
+          case 0:
+          case 1:
+            t = op;
+            break;
+
+          case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+          case 5:
+            _.label++;
+            y = op[1];
+            op = [0];
+            continue;
+
+          case 7:
+            op = _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+
+          default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+              _ = 0;
+              continue;
+            }
+
+            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+
+            if (op[0] === 6 && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+
+              _.ops.push(op);
+
+              break;
+            }
+
+            if (t[2]) _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+        }
+
+        op = body.call(thisArg, _);
+      } catch (e) {
+        op = [6, e];
+        y = 0;
+      } finally {
+        f = t = 0;
+      }
+    }
+
+    if (op[0] & 5) throw op[1];
+    return {
+      value: op[0] ? op[1] : void 0,
+      done: true
+    };
+  }
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Model = void 0;
+
+var Model =
+/** @class */
+function () {
+  function Model(attributes, events, sync) {
+    this.attributes = attributes;
+    this.events = events;
+    this.sync = sync;
+  }
+
+  Object.defineProperty(Model.prototype, "on", {
+    get: function get() {
+      return this.events.on;
+    },
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(Model.prototype, "trigger", {
+    get: function get() {
+      return this.events.trigger;
+    },
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(Model.prototype, "get", {
+    get: function get() {
+      return this.attributes.get;
+    },
+    enumerable: false,
+    configurable: true
+  });
+
+  Model.prototype.set = function (newValue) {
+    this.attributes.set(newValue);
+    this.events.trigger('change');
+  };
+
+  Model.prototype.fetch = function () {
+    return __awaiter(this, void 0, Promise, function () {
+      var id;
+
+      var _this = this;
+
+      return __generator(this, function (_a) {
+        id = this.get('id');
+        if (typeof id !== 'number') throw new Error('Cannot fetch without id!');
+        return [2
+        /*return*/
+        , new Promise(function (resolve, reject) {
+          _this.sync.fetch(id).then(function (result) {
+            _this.set(result.data);
+
+            resolve();
+          }).catch(function (err) {
+            _this.trigger('error');
+
+            console.error(err);
+            reject();
+          });
+        })];
+      });
+    });
+  };
+
+  Model.prototype.save = function () {
+    return __awaiter(this, void 0, Promise, function () {
+      var _this = this;
+
+      return __generator(this, function (_a) {
+        return [2
+        /*return*/
+        , new Promise(function (resolve, reject) {
+          _this.sync.save(_this.attributes.getAll()).then(function (result) {
+            _this.set(result.data);
+
+            _this.trigger('save');
+
+            resolve();
+          }).catch(function (err) {
+            _this.trigger('error');
+
+            console.error(err.message);
+            reject();
+          });
+        })];
+      });
+    });
+  };
+
+  return Model;
+}();
+
+exports.Model = Model;
+},{}],"src/models/APISync.ts":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.APISync = void 0;
+
+var axios_1 = __importDefault(require("axios"));
+
+var APISync =
+/** @class */
+function () {
+  function APISync(rootURL) {
+    var _this = this;
+
+    this.rootURL = rootURL;
+
+    this.save = function (data) {
+      var id = data.id;
+
+      if (id) {
+        return axios_1.default.put(_this.rootURL + "/" + id, data);
+      } else {
+        return axios_1.default.post(_this.rootURL, data);
+      }
+    };
+  }
+
+  APISync.prototype.fetch = function (id) {
+    return axios_1.default.get(this.rootURL + "/" + id);
+  };
+
+  return APISync;
+}();
+
+exports.APISync = APISync;
+},{"axios":"node_modules/axios/index.js"}],"src/models/Attributes.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Attributes = void 0;
+
+var Attributes =
+/** @class */
+function () {
+  function Attributes(data) {
+    var _this = this;
+
+    this.data = data;
+
+    this.get = function (key) {
+      return _this.data[key];
+    };
+
+    this.set = function (newValues) {
+      Object.assign(_this.data, newValues);
+    };
+
+    this.getAll = function () {
+      return _this.data;
+    };
+  }
+
+  return Attributes;
+}();
+
+exports.Attributes = Attributes;
+},{}],"src/models/User.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.User = void 0;
+
+var Collection_1 = require("./Collection");
+
+var Model_1 = require("./Model");
+
+var APISync_1 = require("./APISync");
+
+var Eventing_1 = require("./Eventing");
+
+var Attributes_1 = require("./Attributes");
+
+var rootURL = 'http://localhost:3000/users';
+
+var User =
+/** @class */
+function (_super) {
+  __extends(User, _super);
+
+  function User() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  User.buildUser = function (attr) {
+    return new User(new Attributes_1.Attributes(attr), new Eventing_1.Eventing(), new APISync_1.APISync(rootURL));
+  };
+
+  User.buildUserCollection = function () {
+    return new Collection_1.Collection(rootURL, this.buildUser);
+  };
+
+  return User;
+}(Model_1.Model);
+
+exports.User = User;
+},{"./Collection":"src/models/Collection.ts","./Model":"src/models/Model.ts","./APISync":"src/models/APISync.ts","./Eventing":"src/models/Eventing.ts","./Attributes":"src/models/Attributes.ts"}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
@@ -2689,9 +2695,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var User_1 = require("./models/User");
 
-var Collection_1 = require("./models/Collection");
-
-var collection = new Collection_1.Collection('http://localhost:3000/users', User_1.User.buildUser);
+var collection = User_1.User.buildUserCollection();
 collection.on('change', function () {
   console.log('users fetch');
   console.log(collection);
@@ -2718,7 +2722,7 @@ var init = function init() {
 };
 
 init();
-},{"./models/User":"src/models/User.ts","./models/Collection":"src/models/Collection.ts"}],"../../../../../AppData/Roaming/nvm/v13.12.0/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./models/User":"src/models/User.ts"}],"../../../../../AppData/Roaming/nvm/v13.12.0/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

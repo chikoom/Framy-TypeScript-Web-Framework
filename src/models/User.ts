@@ -1,5 +1,5 @@
+import { Collection } from './Collection'
 import { Model } from './Model'
-import { AxiosResponse } from 'axios'
 import { APISync } from './APISync'
 import { Eventing } from './Eventing'
 import { Attributes } from './Attributes'
@@ -19,5 +19,8 @@ export class User extends Model<UserProps> {
       new Eventing(),
       new APISync<UserProps>(rootURL)
     )
+  }
+  static buildUserCollection(): Collection<User, UserProps> {
+    return new Collection<User, UserProps>(rootURL, this.buildUser)
   }
 }
