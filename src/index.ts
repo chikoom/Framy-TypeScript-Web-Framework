@@ -1,12 +1,5 @@
-import { User } from './models/User'
+import { UserForm } from './Views/UserForm'
 
-const collection = User.buildUserCollection()
-collection.on('change', () => {
-  console.log('users fetch')
-  console.log(collection)
-})
-
-const init = async () => {
-  await collection.fetch()
-}
-init()
+const rootElement = document.getElementById('root')
+const userForm = new UserForm(rootElement)
+userForm.render()
