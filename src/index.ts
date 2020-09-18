@@ -1,9 +1,19 @@
 import { User } from './models/User'
 
 const testUser = new User({ name: 'Idan', age: 37 })
-console.log(testUser.get('name'))
-console.log(testUser.get('age'))
 
-testUser.set({ age: 30 })
+testUser.on('save', () => {
+  console.log('User saved')
+  console.log(testUser)
+})
+
+testUser.on('save', () => {
+  console.log('User fetched')
+  console.log(testUser)
+})
+
 console.log(testUser.get('name'))
-console.log(testUser.get('age'))
+testUser.set({ name: 'Kundi' })
+testUser.save().then(() => {
+  testUser.fetch()
+})
