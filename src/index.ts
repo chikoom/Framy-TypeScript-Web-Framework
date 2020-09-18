@@ -1,19 +1,12 @@
-import { User } from './models/User'
+import { Collection } from './models/Collection'
 
-const testUser = new User({ name: 'Idan', age: 37 })
-
-testUser.on('save', () => {
-  console.log('User saved')
-  console.log(testUser)
+const collection = new Collection('http://localhost:3000/users')
+collection.on('change', () => {
+  console.log('users fetch')
+  console.log(collection)
 })
 
-testUser.on('save', () => {
-  console.log('User fetched')
-  console.log(testUser)
-})
-
-console.log(testUser.get('name'))
-testUser.set({ name: 'Kundi' })
-testUser.save().then(() => {
-  testUser.fetch()
-})
+const init = async () => {
+  await collection.fetch()
+}
+init()

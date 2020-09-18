@@ -1,49 +1,29 @@
 {
   "users": [
     {
-      "name": "Idan",
-      "age": 999,
+      "name": "Kundi",
+      "age": 10,
       "id": 1
     },
     {
-      "name": "Idan",
-      "age": 33,
+      "name": "Kundi",
+      "age": 10,
       "id": 2
     },
     {
-      "name": "Idan",
-      "age": 33,
+      "name": "Kundi",
+      "age": 10,
       "id": 3
     },
     {
-      "name": "Idan",
-      "age": 33,
+      "name": "Kundi",
+      "age": 10,
       "id": 4
     },
     {
       "name": "Kundi",
-      "age": 37,
+      "age": 10,
       "id": 5
-    },
-    {
-      "name": "Kundi",
-      "age": 37,
-      "id": 6
-    },
-    {
-      "name": "Kundi",
-      "age": 37,
-      "id": 7
-    },
-    {
-      "name": "Kundi",
-      "age": 37,
-      "id": 8
-    },
-    {
-      "name": "Kundi",
-      "age": 37,
-      "id": 9
     }
   ]
 }
