@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from 'axios'
 import { Eventing } from './Eventing'
-import { User, UserProps } from './User'
-export class Collection {
-  models: User[] = []
+
+export class Collection<T, K> {
+  models: T[] = []
   events: Eventing = new Eventing()
-  constructor(public rootURL: string) {}
+  constructor(public rootURL: string, public deserialize: (jsonData: K) => T) {}
   get on() {
     return this.events.on
   }
@@ -16,9 +16,7 @@ export class Collection {
       axios
         .get(this.rootURL)
         .then((response: AxiosResponse) => {
-          this.models = response.data.map((user: UserProps) =>
-            User.buildUser(user)
-          )
+          this.models = response.data.map((data: K) => this.deserialize(data))
           this.trigger('change')
           resolve()
         })
