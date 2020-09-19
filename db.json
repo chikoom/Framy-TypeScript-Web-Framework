@@ -24,6 +24,16 @@
       "name": "Kundi",
       "age": 10,
       "id": 5
+    },
+    {
+      "name": "SHUMIL",
+      "age": 37,
+      "id": 6
+    },
+    {
+      "name": "humi",
+      "age": 18,
+      "id": 7
     }
   ]
 }
