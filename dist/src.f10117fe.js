@@ -134,6 +134,18 @@ function () {
     this.parent = parent;
     this.model = model;
 
+    this.onSetName = function () {
+      var input = _this.parent.querySelector('input');
+
+      if (input) {
+        var name = input.value;
+
+        _this.model.set({
+          name: name
+        });
+      }
+    };
+
     this.onSetAge = function () {
       _this.model.setRandomAge();
     };
@@ -151,12 +163,13 @@ function () {
 
   UserForm.prototype.eventsMap = function () {
     return {
-      'click:.set-age': this.onSetAge
+      'click:.set-age': this.onSetAge,
+      'click:.set-name': this.onSetName
     };
   };
 
   UserForm.prototype.template = function () {
-    return "\n      <div>\n        <h1> User Form </h1>\n        <div>User Name: " + this.model.get('name') + "</div>\n        <div>User Age: " + this.model.get('age') + "</div>\n        <input type=\"text\" />\n        <button class='set-age'>Set Random Age</button>\n        <button>Save</button>\n      </div>\n    ";
+    return "\n      <div>\n        <h1> User Form </h1>\n        <div>User Name: " + this.model.get('name') + "</div>\n        <div>User Age: " + this.model.get('age') + "</div>\n        <input class='value-name' type=\"text\" />\n        <button class='set-name'>Update Name</button>\n        <button class='set-age'>Set Random Age</button>\n        <button>Save</button>\n      </div>\n    ";
   };
 
   UserForm.prototype.bindEvents = function (fragment) {
@@ -2638,8 +2651,11 @@ var user = User_1.User.buildUser({
   name: 'idan',
   age: 37
 });
-var userForm = new UserForm_1.UserForm(rootElement, user);
-userForm.render();
+
+if (rootElement) {
+  var userForm = new UserForm_1.UserForm(rootElement, user);
+  userForm.render();
+}
 },{"./Views/UserForm":"src/Views/UserForm.ts","./models/User":"src/models/User.ts"}],"../../../../../AppData/Roaming/nvm/v13.12.0/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
