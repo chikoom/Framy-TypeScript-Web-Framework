@@ -1,3 +1,4 @@
+import { UserList2 } from './Views/UserList2'
 import { Collection } from './models/Collection'
 import { UserEdit } from './Views/UserEdit'
 import { User } from './models/User'
@@ -11,11 +12,20 @@ const rootElement = document.getElementById('root')
 //   console.log(userEdit)
 // }
 
-const userCollection = User.buildUserCollection()
-userCollection.fetch().then(() => {
-  console.log(userCollection)
+// const userCollection = User.buildUserCollection()
+// userCollection.fetch().then(() => {
+//   console.log(userCollection)
+//   if (rootElement) {
+//     const userColelctionView = new UserList(rootElement, userCollection)
+//     userColelctionView.render()
+//   }
+// })
+
+const users = User.buildUserCollection()
+users.on('change', () => {
   if (rootElement) {
-    const userColelctionView = new UserList(rootElement, userCollection)
+    const userColelctionView = new UserList2(rootElement, users)
     userColelctionView.render()
   }
 })
+users.fetch()
